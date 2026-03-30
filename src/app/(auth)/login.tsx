@@ -39,8 +39,8 @@ export default function LoginScreen() {
   return (
     <SafeAreaView edges={["top", "bottom"]} style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subtitle}>Sign In to Continue</Text>
+        <Text style={styles.title}>Welcome back!</Text>
+        <Text style={styles.subtitle}>Sign in to continue</Text>
         <View style={styles.form}>
           <TextInput
             placeholder="Email..."

@@ -1,33 +1,80 @@
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
+import { supabase } from "../../../lib/supabase/client";
 
 export default function AddHabitScreen() {
   const [habitName, setHabitName] = useState("");
   const [description, setDescription] = useState("");
   const [frequency, setFrequency] = useState("daily");
+  const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuth();
 
-  const handleAddHabit = () => {
-    if (habitName.trim()) {
-      console.log("New habit:", { habitName, description, frequency });
+  const showMessage = (title: string, message: string) => {
+    if (Platform.OS === "web" && typeof window !== "undefined") {
+      window.alert(`${title}\n\n${message}`);
+      return;
+    }
+    Alert.alert(title, message);
+  };
+
+  const handleAddHabit = async () => {
+    if (!habitName.trim()) return;
+    if (!user) {
+      showMessage("Error", "You must be signed in to add a habit.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const now = new Date().toISOString();
+      const { error } = await supabase.from("habits").insert({
+        user_id: user.id,
+        title: habitName.trim(),
+        description: description.trim(),
+        frequency,
+        streak_count: 0,
+        last_completed: now,
+        created_at: now,
+      });
+
+      if (error) throw error;
+
+      console.log("Habit successfully added to database:", {
+        user_id: user.id,
+        title: habitName.trim(),
+        description: description.trim(),
+        frequency,
+      });
+
       setHabitName("");
       setDescription("");
       setFrequency("daily");
+      showMessage("Success", "Habit successfully added to database.");
+    } catch (error) {
+      console.error("Error adding habit:", error);
+      showMessage("Error", "Failed to add habit. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Add New Habit</Text>
+      <Text style={styles.title}>Add new habit</Text>
 
       <View style={styles.formGroup}>
-        <Text style={styles.label}>Habit Name *</Text>
+        <Text style={styles.label}>Habit name *</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter habit name"
@@ -66,8 +113,16 @@ export default function AddHabitScreen() {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.addButton} onPress={handleAddHabit}>
-        <Text style={styles.addButtonText}>Add Habit</Text>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={handleAddHabit}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.addButtonText}>Add Habit</Text>
+        )}
       </TouchableOpacity>
     </ScrollView>
   );
@@ -111,17 +166,18 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 14,
     borderWidth: 1,
-    borderColor: "#666",
+    borderColor: "#999",
+    backgroundColor: "#999",
     borderRadius: 20,
     alignItems: "center",
   },
   frequencyButtonActive: {
-    backgroundColor: "#999",
-    borderColor: "#1e4504",
+    backgroundColor: "#1d1d1d",
+    borderColor: "#999",
   },
   frequencyText: {
     textTransform: "capitalize",
-    color: "#007AFF",
+    color: "#f7f9fb",
   },
   addButton: {
     backgroundColor: "#666",
