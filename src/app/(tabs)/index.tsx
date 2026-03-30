@@ -66,9 +66,47 @@ export default function HomeScreen() {
     }
   };
 
+  const calcNewStreak = (habit: Habit): number | null => {
+    const now = new Date();
+    const todayStart = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+    ).getTime();
+
+    if (!habit.last_completed) return 1;
+
+    const last = new Date(habit.last_completed);
+    const lastStart = new Date(
+      last.getFullYear(),
+      last.getMonth(),
+      last.getDate(),
+    ).getTime();
+
+    // Window in ms within which the streak continues (based on frequency)
+    const windowMs =
+      habit.frequency === "weekly"
+        ? 7 * 24 * 60 * 60 * 1000
+        : habit.frequency === "monthly"
+          ? 31 * 24 * 60 * 60 * 1000
+          : 24 * 60 * 60 * 1000; // daily
+
+    // Already completed in the current window — nothing to do
+    if (todayStart - lastStart < windowMs) return null;
+
+    // Completed in the previous window — continue streak
+    if (todayStart - lastStart < windowMs * 2) return habit.streak_count + 1;
+
+    // Gap too large — streak broken, restart at 1
+    return 1;
+  };
+
   const handleCompleteHabit = async (id: string) => {
     const habit = habits.find((h) => h.id === id);
     if (!habit) return;
+
+    const newStreak = calcNewStreak(habit);
+    if (newStreak === null) return; // already completed in this window
 
     const currentDate = new Date().toISOString();
 
@@ -76,7 +114,7 @@ export default function HomeScreen() {
       const { error } = await supabase
         .from("habits")
         .update({
-          streak_count: habit.streak_count + 1,
+          streak_count: newStreak,
           last_completed: currentDate,
         })
         .eq("id", id);
@@ -86,11 +124,7 @@ export default function HomeScreen() {
       setHabits((prev) =>
         prev.map((item) =>
           item.id === id
-            ? {
-                ...item,
-                streak_count: item.streak_count + 1,
-                last_completed: currentDate,
-              }
+            ? { ...item, streak_count: newStreak, last_completed: currentDate }
             : item,
         ),
       );
