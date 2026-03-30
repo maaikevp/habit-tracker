@@ -15,6 +15,10 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Icon sf="plus.bubble" md="settings" />
         <NativeTabs.Trigger.Label>Add habit</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="help">
+        <NativeTabs.Trigger.Icon sf="questionmark.circle" md="help" />
+        <NativeTabs.Trigger.Label>Help</NativeTabs.Trigger.Label>
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }

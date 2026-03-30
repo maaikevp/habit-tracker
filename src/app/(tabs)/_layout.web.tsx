@@ -37,6 +37,15 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="help"
+        options={{
+          title: "help",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="question-mark" size={24} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

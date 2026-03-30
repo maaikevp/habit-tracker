@@ -1,3 +1,76 @@
+# Habit Tracker
+
+Habit Tracker helps you build routines through clear streak tracking, quick swipe actions, and simple progress visibility.
+
+## Customer Guide
+
+### What the app does
+
+- Lets you create habits with a daily, weekly, or monthly frequency
+- Tracks each habit streak over time
+- Shows streak rankings with medal spots for top performers
+
+### How to use it
+
+1. Sign in or create an account
+2. Go to Add habit and create one or more habits
+3. On Home:
+   - Swipe right to complete a habit
+   - Swipe left to delete a habit
+4. Open Streaks to see rankings, streak counts, and top 3 medals
+
+### How streak counting works
+
+- Each habit has a completion window based on its frequency
+- A habit can only be counted once per current window
+- Completing on time extends the streak
+- Missing enough windows means the next completion restarts from 1
+
+### Data and account behavior
+
+- Habits are stored in Supabase and linked to your account
+- Signing out does not remove your saved habits
+- Signing in on the same account restores your data
+
+### FAQ
+
+Q: Can I edit a habit?
+A: Current version supports add, complete, and delete.
+
+Q: Do medals stay forever?
+A: No. Medals update automatically based on current streak ranking.
+
+Q: Why did my streak not increase?
+A: If the habit was already completed in the current window, it will not be double-counted.
+
+## In-App Help
+
+A customer-friendly Help tab is available in the app navigation with the same information in a quick, readable format.
+
+## Developer Setup
+
+1. Install dependencies
+
+```bash
+npm install
+```
+
+2. Start the app
+
+```bash
+npx expo start
+```
+
+3. Build with EAS
+
+```bash
+eas build --platform all
+```
+
+---
+
+## Original Expo Starter Text
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
