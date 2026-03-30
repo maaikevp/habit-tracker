@@ -1,4 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
+import { animePalette } from "@/theme/animeTheme";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -71,13 +72,14 @@ export default function AddHabitScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Add new habit</Text>
+      <Text style={styles.title}>Create your next habit</Text>
 
       <View style={styles.formGroup}>
         <Text style={styles.label}>Habit name *</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter habit name"
+          placeholderTextColor={animePalette.inkSoft}
           value={habitName}
           onChangeText={setHabitName}
         />
@@ -88,6 +90,7 @@ export default function AddHabitScreen() {
         <TextInput
           style={[styles.input, styles.textArea]}
           placeholder="Enter habit description"
+          placeholderTextColor={animePalette.inkSoft}
           value={description}
           onChangeText={setDescription}
           multiline
@@ -132,12 +135,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: animePalette.sky,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 24,
+    color: animePalette.ink,
+    letterSpacing: 0.3,
   },
   formGroup: {
     marginBottom: 20,
@@ -146,13 +151,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 8,
+    color: animePalette.ink,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
+    borderColor: "#cfe2f2",
+    backgroundColor: animePalette.cloud,
+    borderRadius: 14,
     padding: 12,
     fontSize: 16,
+    color: animePalette.ink,
   },
   textArea: {
     textAlignVertical: "top",
@@ -166,23 +174,24 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 14,
     borderWidth: 1,
-    borderColor: "#999",
-    backgroundColor: "#999",
+    borderColor: "#d2e6f3",
+    backgroundColor: animePalette.cloud,
     borderRadius: 20,
     alignItems: "center",
   },
   frequencyButtonActive: {
-    backgroundColor: "#1d1d1d",
-    borderColor: "#999",
+    backgroundColor: animePalette.sakuraDeep,
+    borderColor: animePalette.sakuraDeep,
   },
   frequencyText: {
     textTransform: "capitalize",
-    color: "#f7f9fb",
+    color: animePalette.ink,
+    fontWeight: "600",
   },
   addButton: {
-    backgroundColor: "#666",
+    backgroundColor: animePalette.sakuraDeep,
     paddingVertical: 14,
-    borderRadius: 8,
+    borderRadius: 14,
     alignItems: "center",
     marginTop: 24,
   },

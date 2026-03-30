@@ -1,14 +1,15 @@
 import { useAuth } from "@/context/AuthContext";
+import { animePalette } from "@/theme/animeTheme";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-  ActivityIndicator,
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Alert,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -23,6 +24,7 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert("Error", "Please fill in all fields");
+      return;
     }
 
     setIsLoading(true);
@@ -39,8 +41,8 @@ export default function LoginScreen() {
   return (
     <SafeAreaView edges={["top", "bottom"]} style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome back!</Text>
-        <Text style={styles.subtitle}>Sign in to continue</Text>
+        <Text style={styles.title}>Welcome Back, Hero</Text>
+        <Text style={styles.subtitle}>Continue your daily anime arc</Text>
         <View style={styles.form}>
           <TextInput
             placeholder="Email..."
@@ -88,6 +90,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: animePalette.sky,
   },
   content: {
     flex: 1,
@@ -98,27 +101,30 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     marginBottom: 8,
+    color: animePalette.ink,
+    letterSpacing: 0.4,
   },
   subtitle: {
     fontSize: 16,
     marginBottom: 32,
-    color: "#666",
+    color: animePalette.inkSoft,
   },
   form: {
     width: "100%",
   },
   input: {
-    backgroundColor: "#f5f5f5",
-    borderRadius: 12,
+    backgroundColor: animePalette.cloud,
+    borderRadius: 14,
     padding: 16,
     fontSize: 16,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: "#e0e0e0",
+    borderColor: "#d4e7f5",
+    color: animePalette.ink,
   },
   button: {
-    backgroundColor: "#000",
-    borderRadius: 12,
+    backgroundColor: animePalette.sakuraDeep,
+    borderRadius: 14,
     padding: 16,
     alignItems: "center",
   },
@@ -132,11 +138,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   linkButtonText: {
-    color: "#666",
+    color: animePalette.inkSoft,
     fontSize: 14,
   },
   linkButtonTextBold: {
     fontWeight: "600",
-    color: "#000",
+    color: animePalette.sakuraDeep,
   },
 });

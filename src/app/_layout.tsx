@@ -1,4 +1,5 @@
 import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { animePalette, animePaperTheme } from "@/theme/animeTheme";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { ReactNode, useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
@@ -30,7 +31,7 @@ export function RouteGuard({ children }: { children: ReactNode }) {
   if (isLoadingUser) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={animePalette.sakuraDeep} />
       </View>
     );
   }
@@ -41,7 +42,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
-        <PaperProvider>
+        <PaperProvider theme={animePaperTheme}>
           <SafeAreaProvider>
             <RouteGuard>
               <Stack screenOptions={{ headerShown: false }}>

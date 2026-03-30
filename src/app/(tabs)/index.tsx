@@ -1,4 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
+import { animePalette } from "@/theme/animeTheme";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
@@ -118,7 +119,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.title}>Your Habits</Text>
+          <Text style={styles.title}>Your daily habits</Text>
           <Text variant="bodyMedium" style={styles.subtitle}>
             Swipe right to complete, left to delete
           </Text>
@@ -130,7 +131,7 @@ export default function HomeScreen() {
 
       {isLoading ? (
         <View style={styles.loadingState}>
-          <ActivityIndicator size="large" color="#666" />
+          <ActivityIndicator size="large" color={animePalette.sakuraDeep} />
         </View>
       ) : (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: animePalette.sky,
   },
   header: {
     flexDirection: "row",
@@ -211,9 +212,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
+    color: animePalette.ink,
+    letterSpacing: 0.4,
   },
   subtitle: {
-    color: "#666",
+    color: animePalette.inkSoft,
     marginTop: 2,
   },
   loadingState: {
@@ -224,12 +227,14 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 14,
     borderRadius: 18,
-    backgroundColor: "#f7f2fa",
+    backgroundColor: animePalette.cloud,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
     elevation: 4,
+    borderWidth: 1,
+    borderColor: "#d9ebf9",
   },
   cardContent: {
     padding: 20,
@@ -238,12 +243,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 4,
-    color: "#22223b",
+    color: animePalette.ink,
   },
   cardDescription: {
     fontSize: 15,
     marginBottom: 16,
-    color: "#6c6c80",
+    color: animePalette.inkSoft,
   },
   cardFooter: {
     flexDirection: "row",
@@ -253,25 +258,25 @@ const styles = StyleSheet.create({
   streakBadge: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f9e3c0",
+    backgroundColor: animePalette.peach,
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 4,
   },
   streakText: {
     marginLeft: 6,
-    color: "#ce7b00",
+    color: "#b25e23",
     fontWeight: "bold",
     fontSize: 14,
   },
   frequencyBadge: {
-    backgroundColor: "#ede7f6",
+    backgroundColor: animePalette.mint,
     borderRadius: 12,
     paddingHorizontal: 12,
     paddingVertical: 4,
   },
   frequencyText: {
-    color: "#5220b5",
+    color: "#167c78",
     fontWeight: "bold",
     fontSize: 14,
   },
@@ -279,7 +284,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     flex: 1,
-    backgroundColor: "#e53935",
+    backgroundColor: animePalette.danger,
     borderRadius: 18,
     marginBottom: 14,
     marginTop: 2,
@@ -289,7 +294,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
     flex: 1,
-    backgroundColor: "#4caf50",
+    backgroundColor: animePalette.success,
     borderRadius: 18,
     marginBottom: 14,
     marginTop: 2,
@@ -300,6 +305,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   emptyStateText: {
-    color: "#666",
+    color: animePalette.inkSoft,
   },
 });

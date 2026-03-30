@@ -33,7 +33,7 @@ export default function TabsLayout() {
         options={{
           title: "Add habit",
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="add-box" size={24} color={color} />
+            <MaterialIcons name="add-circle" size={24} color={color} />
           ),
         }}
       />

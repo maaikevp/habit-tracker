@@ -1,3 +1,4 @@
+import { animePalette } from "@/theme/animeTheme";
 import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
@@ -51,7 +52,8 @@ export default function StreaksScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Your Streaks</Text>
+      <View style={styles.bgRibbon} />
+      <Text style={styles.title}>Power Level: Streaks</Text>
       <FlatList
         data={habits}
         renderItem={renderHabit}
@@ -65,31 +67,44 @@ export default function StreaksScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: animePalette.sky,
     padding: 16,
+  },
+  bgRibbon: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 120,
+    backgroundColor: "#d9f0ff",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
+    color: animePalette.ink,
+    letterSpacing: 0.4,
   },
   list: {
     gap: 12,
   },
   habitCard: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
+    backgroundColor: animePalette.cloud,
+    borderRadius: 16,
     padding: 16,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
     elevation: 3,
+    borderWidth: 1,
+    borderColor: "#d8e9f8",
   },
   habitName: {
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 12,
+    color: animePalette.ink,
   },
   streakContainer: {
     flexDirection: "row",
@@ -101,12 +116,12 @@ const styles = StyleSheet.create({
   },
   streakLabel: {
     fontSize: 12,
-    color: "#666",
+    color: animePalette.inkSoft,
     marginBottom: 4,
   },
   streakNumber: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#c4b030",
+    color: animePalette.sakuraDeep,
   },
 });
